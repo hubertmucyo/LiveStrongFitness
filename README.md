@@ -1,2 +1,0 @@
-# LiveStrongFitness
-Fitness Tracker Website
