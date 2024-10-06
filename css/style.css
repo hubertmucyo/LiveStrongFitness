@@ -548,7 +548,7 @@ ol {
 }
 
 /*---------------------
-  ChoseUs Section
+  ChooseUs Section
 -----------------------*/
 
 .choseus-section {
@@ -1322,6 +1322,10 @@ ol {
 
 .about-text .about-bar .ab-item .barfiller .tip:after {
 	display: none;
+}
+
+.breadcrumb-text h4{
+	color: #fefefe;
 }
 
 /*---------------------
