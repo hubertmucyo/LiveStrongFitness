@@ -1,6 +1,5 @@
-/*  ---------------------------------------------------
-  Template Name: Gym
-  Description:  Gym Fitness HTML Template
+/*  --------------------------------------------------
+  Description:  LiveStrongFitness
   Author: Colorlib
   Author URI: https://colorlib.com
   Version: 1.0
