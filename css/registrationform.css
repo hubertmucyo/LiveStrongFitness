@@ -1,26 +1,37 @@
 /* General Styles */
 body {
-    background-image: url("img\gym.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
 }
 
+/* Background Image */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1; /* Send the image to the back */
+}
+
+/* Container Styles (applies to both forms) */
 .container {
+    max-width: 400px;
     margin: 50px auto;
     background: rgba(255, 255, 255, 0.1); /* Transparent background for both forms */
-    backdrop-filter: blur(10px); /* Blurred glass effect for both */
+    backdrop-filter: blur(10px); /* Blurred glass effect */
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    position: relative;
+    z-index: 1; /* Ensure content stays above the background image */
     color: #fff;
 }
 
+/* Headings */
 h1 {
     text-align: center;
     font-size: 1.8em;
@@ -55,10 +66,16 @@ input[type="number"]:focus {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between the buttons */
+    margin-top: 20px;
+}
+
+/* Style individual buttons */
 button {
-    width: 50%;
-    padding: 12px;
-    border: none;
+    padding: 12px 20px;
     border-radius: 10px;
     background: linear-gradient(135deg, #ff416c, #ff4b2b);
     color: #fff;
@@ -70,21 +87,25 @@ button {
     margin-bottom: 10px;
 }
 
+/* Button hover effect */
 button:hover {
     background: linear-gradient(135deg, #ff4b2b, #ff416c);
     box-shadow: 0 5px 12px rgba(255, 75, 43, 0.4);
 }
 
+/* Button active effect */
 button:active {
     transform: scale(0.97);
 }
 
+/* Message Styling */
 .message {
     margin-top: 12px;
     font-size: 1em;
     text-align: center;
 }
 
+/* Placeholder Styling */
 ::placeholder {
     color: black;
     opacity: 1;
@@ -93,23 +114,11 @@ button:active {
 /* Registration Form Specific Styles */
 .registration-form {
     max-width: 400px;
-    padding: 40px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.registration-form h1 {
-    font-size: 50px;
 }
 
 /* Username and Password Creation Form Specific Styles */
 .credentials-form {
     max-width: 400px;
-    padding: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-}
-
-.credentials-form h1 {
-    font-size: 1.8em;
 }
 
 /* Responsive adjustments */

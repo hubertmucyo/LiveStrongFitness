@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/registrationform.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>             
+<body>
+    <img src="img/gym.jpeg" class="background-image" alt="Gym Background">
     <h1><b>LIVESTRONG FITNESS</b></h1>
     <div class="container registration-form">
         <form id="registrationForm" method="post">
@@ -16,36 +17,39 @@
             <input type="number" placeholder="Age" required>
             <input type="email" placeholder="Email" required>
             <input type="text" placeholder="Address" required>
-            <button type="submit">Register</button>
-            <div class="form-group">
+
+            <!-- Button container for centering -->
+            <div class="button-container">
+                <button type="submit">Register</button>
                 <button type="button" onclick="reset()">Reset</button>
             </div>
         </form>
-        <div id="message"></div>   <!-- Success/Error messages -->
+        <div id="message"></div> <!-- Success/Error messages -->
     </div>
-    <script>
-    $(document).ready(function() {
-        $('#registrationForm').on('submit', function(e) {
-            e.preventDefault(); // Stop the page from refreshing
-            $('#message').html('').show(); // Clear the message and ensure it's visible
 
-            $.ajax({
-                type: 'POST',
-                url: 'index.php', // Handle registration on the server
-                data: $(this).serialize(),
-                success: function(response) {
-                    if (response === 'success') {
-                        $('#message').html('<div style="color: green;">Registered successfully! Redirecting...</div>');
-                        setTimeout(function() {
-                            window.location.href = 'create-credentials.html'; // Redirect to create credentials page
-                        }, 2000); // Wait 2 seconds before redirecting
-                    } else {
-                        $('#message').html('<div style="color: red;">Registration unsuccessful.</div>');
+    <script>
+        $(document).ready(function() {
+            $('#registrationForm').on('submit', function(e) {
+                e.preventDefault(); // Stop the page from refreshing
+                $('#message').html('').show(); // Clear the message and ensure it's visible
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'index.php', // Handle registration on the server
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response === 'success') {
+                            $('#message').html('<div style="color: green;">Registered successfully! Redirecting...</div>');
+                            setTimeout(function() {
+                                window.location.href = 'create-credentials.html'; // Redirect to create credentials page
+                            }, 2000); // Wait 2 seconds before redirecting
+                        } else {
+                            $('#message').html('<div style="color: red;">Registration unsuccessful.</div>');
+                        }
                     }
-                }
+                });
             });
         });
-    });
     </script>
 </body>
 </html>
