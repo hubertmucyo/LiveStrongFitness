@@ -1,20 +1,21 @@
 <?php
+// connection.php should contain your database connection logic
 include "connection.php";
 
-$fullname = $_POST['Fullname'];
+// Retrieve form data
+$first_name = $_POST['first_name'];
+$last_name = $_POST['last_name'];
 $age = $_POST['age'];
 $email = $_POST['email'];
-$username = $_POST['username'];
-$password = $_POST['password'];
+$address = $_POST['address'];
 
-// Insert data into the database
-$sql2 = "INSERT INTO data (fullname, age, email, username, password) VALUES('$fullname', '$age', '$email', '$username', '$password')";
+// Prepare SQL query to insert data
+$sql = "INSERT INTO users (first_name, last_name, age, email, address) VALUES ('$first_name', '$last_name', '$age', '$email', '$address')";
 
-if (mysqli_query($con, $sql2)) 
-{
-    echo 'success';  // Return plain success string
+// Execute the query
+if (mysqli_query($con, $sql)) {
+    echo 'success';  // Return success response
 } else {
-    echo 'error';  // Return error string
+    echo 'error';  // Return error response
 }
-
 ?>
