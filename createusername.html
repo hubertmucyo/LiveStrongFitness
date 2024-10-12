@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Username and Password</title>
+    <link rel="stylesheet" href="css/registrationform.css"> <!-- Assuming same stylesheet is used -->
+</head>
+<body>
+    <div class="container credentials-form">
+        <h1>Create Your Account</h1>
+        <form id="credentialsForm" method="post">
+            <input type="text" name="username" placeholder="Create Username" required>
+            <input type="password" name="password" placeholder="Create Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Set Username and Password</button>
+            <div id="message"></div> <!-- Success/Error message will be displayed here -->
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Handle form submission
+        $('#credentialsForm').on('submit', function(e) {
+            e.preventDefault(); // Stop the form from refreshing the page
+
+            let password = $('input[name="password"]').val();
+            let confirmPassword = $('input[name="confirmPassword"]').val();
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                $('#message').html('<div style="color: red;">Passwords do not match!</div>');
+                return;
+            }
+
+            // If passwords match, submit the form data via AJAX
+            $.ajax({
+                type: 'POST',
+                url: 'process-credentials.php', // URL to process the credentials on the server
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response === 'success') {
+                        $('#message').html('<div style="color: green;">Credentials set successfully!</div>');
+                        setTimeout(function() {
+                            window.location.href = 'dashboard.html'; // Redirect to dashboard or home page
+                        }, 2000); // Redirect after 2 seconds
+                    } else {
+                        $('#message').html('<div style="color: red;">Failed to set credentials.</div>');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

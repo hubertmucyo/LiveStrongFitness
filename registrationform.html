@@ -1,82 +1,51 @@
 <!DOCTYPE html>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
-    <link rel="stylesheet" href="registrationform.css">
+    <link rel="stylesheet" href="css/registrationform.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-<body>
-    <!-- Navigation bar  -->
-    <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">Login</a></li>
-        <li><a href="registrationform.php">Register</a></li>
-        <li><a href="">About</a></li>
-      </ul>
-             
-            <h1 style="font-size: 50px" color="white"><b>Live Strong Fitness Arena</b><h1>
-                <h2>    <h2>
-
-   <div class="container">
+<body>             
+    <h1><b>LIVESTRONG FITNESS</b></h1>
+    <div class="container registration-form">
         <form id="registrationForm" method="post">
+            <input type="text" placeholder="First Name" required>
+            <input type="text" placeholder="Last Name" required>
+            <input type="number" placeholder="Age" required>
+            <input type="email" placeholder="Email" required>
+            <input type="text" placeholder="Address" required>
+            <button type="submit">Register</button>
             <div class="form-group">
-                <label for="Fullname">Fullname</label>
-                <input type="text" id="Fullname" name="Fullname" required>
-            </div>
-            <div class="form-group">
-                <label for="age">Age</label>
-                <input type="number" id="age" name="age" min="15" max="80" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Register</button>
-            </div>
-            <div class="form-group">
-                <button onclick="reset()">Reset</button>
+                <button type="button" onclick="reset()">Reset</button>
             </div>
         </form>
-            <div id="message"></div>   <!-- Success/Error msgs showing in here  -->
+        <div id="message"></div>   <!-- Success/Error messages -->
     </div>
+    <script>
+    $(document).ready(function() {
+        $('#registrationForm').on('submit', function(e) {
+            e.preventDefault(); // Stop the page from refreshing
+            $('#message').html('').show(); // Clear the message and ensure it's visible
+
+            $.ajax({
+                type: 'POST',
+                url: 'index.php', // Handle registration on the server
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response === 'success') {
+                        $('#message').html('<div style="color: green;">Registered successfully! Redirecting...</div>');
+                        setTimeout(function() {
+                            window.location.href = 'create-credentials.html'; // Redirect to create credentials page
+                        }, 2000); // Wait 2 seconds before redirecting
+                    } else {
+                        $('#message').html('<div style="color: red;">Registration unsuccessful.</div>');
+                    }
+                }
+            });
+        });
+    });
+    </script>
 </body>
 </html>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- import j query -->
-<script>
- $('#registrationForm').on('submit', function(e) {
-    e.preventDefault(); //Stop page from refreshing
-    $('#message').html('').show();   // Ensure 'hidden' class is removed before showing a message
-    $.ajax({
-        type: 'POST',
-        url: 'index.php',
-        data: $(this).serialize(),  //Set the data of registrationForm into an array of data
-        success: function(response) {
-            if (response === 'success') {
-                $('#message').html('<div style="color: green;">Registered successfully</div>'); //set html for success
-                $('#registrationForm')[0].reset();  // Reset form if success
-            } else {
-                $('#message').html('<div style="color: red;">Registration unsuccessful</div>'); //Set html for unsucess 
-            }
-
-            setTimeout(function() {
-                $('#message').hide();
-            }, 3000);  // Hide message after 3 seconds
-        }
-    });
-});
-
-  function reset(){
-    $('#registrationForm')[0].reset(); 
-    $('#message').html('').hide();
-  }
-</script>
