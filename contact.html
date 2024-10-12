@@ -173,13 +173,15 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="leave-comment">
-                        <form form id="commentForm" method="post">
-                            <input type="text" placeholder="Name">
-                            <input type="text" placeholder="Email">
-                            <textarea placeholder="Comment"></textarea>
+                        <form id="commentForm" method="post"> <!-- Corrected form tag -->
+                            <input type="text" name="name" placeholder="Name" required> <!-- Added name attribute -->
+                            <input type="email" name="email" placeholder="Email" required> <!-- Added name attribute -->
+                            <textarea name="comment" placeholder="Comment" required></textarea> <!-- Added name attribute -->
                             <button type="submit">Submit</button>
                         </form>
+                        <div id="message"></div> <!-- Div to display success/error message -->
                     </div>
+                    
                 </div>
             </div>
             <div class="map">
@@ -288,28 +290,26 @@
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#commentForm').on('submit', function(e) {
-            e.preventDefault(); // Stop the page from refreshing
-
-            $.ajax({
-                type: 'POST',
-                url: 'send_email.php', // URL to process the email on the server
-                data: $(this).serialize(),
-                success: function(response) {
-                    $('#message').html(response); // Display the response message
-                },
-                error: function() {
-                    $('#message').html('<div style="color: red;">Failed to send your comment. Please try again later.</div>');
-                }
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#commentForm').on('submit', function(e) {
+                e.preventDefault(); // Stop the page from refreshing
+    
+                $.ajax({
+                    type: 'POST',
+                    url: 'send_email.php', // URL to process the email on the server
+                    data: $(this).serialize(), // Serialize the form data
+                    success: function(response) {
+                        $('#message').html(response); // Display the response message
+                    },
+                    error: function() {
+                        $('#message').html('<div style="color: red;">Failed to send your comment. Please try again later.</div>');
+                    }
+                });
             });
         });
-    });
-</script>
-
-
+    </script>
 
 </body>
 

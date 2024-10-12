@@ -1,21 +1,42 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'path/to/PHPMailer/src/Exception.php';
+require 'path/to/PHPMailer/src/PHPMailer.php';
+require 'path/to/PHPMailer/src/SMTP.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = htmlspecialchars($_POST['name']);
-    $email = htmlspecialchars($_POST['email']);
-    $website = htmlspecialchars($_POST['website']);
-    $comment = htmlspecialchars($_POST['comment']);
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $website = $_POST['website'];
+    $comment = $_POST['comment'];
 
-    $to = "mucyohubert33@gmail.com";
-    $subject = "New Comment from $name";
-    $message = "Name: $name\nEmail: $email\nWebsite: $website\nComment: $comment";
-    $headers = "From: $email\r\n";
+    $mail = new PHPMailer(true);
 
-    if (mail($to, $subject, $message, $headers)) {
-        echo '<div style="color: green;">Comment submitted successfully!</div>';
-    } else {
-        echo '<div style="color: red;">Failed to send email. Please try again later.</div>';
+    try {
+        //Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'mucyohubert33@gmail.com'; // Your Gmail address
+        $mail->Password = 'your_email_password'; // Your Gmail password or App Password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        //Recipients
+        $mail->setFrom('mucyohubert33@gmail.com', 'Your Name');
+        $mail->addAddress('mucyohubert33@gmail.com'); // Add your email address
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'New Comment Submission';
+        $mail->Body = "<strong>Name:</strong> $name<br><strong>Email:</strong> $email<br><strong>Website:</strong> $website<br><strong>Comment:</strong> $comment";
+
+        $mail->send();
+        echo 'Message has been sent';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-} else {
-    echo '<div style="color: red;">Invalid request method.</div>';
 }
 ?>
