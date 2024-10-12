@@ -176,7 +176,6 @@
                         <form action="#">
                             <input type="text" placeholder="Name">
                             <input type="text" placeholder="Email">
-                            <input type="text" placeholder="Website">
                             <textarea placeholder="Comment"></textarea>
                             <button type="submit">Submit</button>
                         </form>
@@ -288,6 +287,27 @@
     <script src="js/jquery.slicknav.js"></script>
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/main.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#commentForm').on('submit', function(e) {
+            e.preventDefault(); // Stop the page from refreshing
+
+            $.ajax({
+                type: 'POST',
+                url: 'send_email.php', // URL to process the email on the server
+                data: $(this).serialize(),
+                success: function(response) {
+                    $('#message').html(response); // Display the response message
+                },
+                error: function() {
+                    $('#message').html('<div style="color: red;">Failed to send your comment. Please try again later.</div>');
+                }
+            });
+        });
+    });
+</script>
 
 
 
