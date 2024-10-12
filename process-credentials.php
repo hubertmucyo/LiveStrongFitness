@@ -1,6 +1,7 @@
 <?php
 include "connection-user.php"; // Include the connection file
 
+$con = mysqli_connect("localhost", "senuka123", "1234", "testdb") or die("Couldn't connect");
 // Retrieve form data
 $username = $_POST['username'];
 $password = $_POST['password'];
